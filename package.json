@@ -1,0 +1,9 @@
+{
+  "name": "movie-log-be",
+  "version": "0.1.0",
+  "description": "Movie.log Backend Server",
+  "main": "src/index.ts",
+  "author": "Flynn<wphestiraid@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
