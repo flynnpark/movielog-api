@@ -11,14 +11,18 @@
     "eslint": "^6.4.0",
     "nodemon": "^1.19.2",
     "serverless-offline": "^5.11.0",
+    "serverless-prune-plugin": "^1.4.1",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.3"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "serverless-http": "^2.3.0",
     "typeorm": "^0.2.19"
   },
   "scripts": {
-    "dev:server": "nodemon --exec ts-node src/server.ts -e ts"
+    "build": "tsc",
+    "dev:server": "nodemon --exec ts-node src/server.ts -e ts",
+    "dev:serverless": "yarn build && sls offline start"
   }
 }
