@@ -1,4 +1,4 @@
-import getServer from "./app";
+import getServer from './app';
 
 const PORT: number | string = process.env.PORT || 4000;
 

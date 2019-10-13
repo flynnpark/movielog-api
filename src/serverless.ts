@@ -1,6 +1,6 @@
-import serverless from "serverless-http";
-import getServer from "./app";
-import { APIGatewayProxyEvent, Context } from "aws-lambda";
+import serverless from 'serverless-http';
+import getServer from './app';
+import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 
 declare namespace ServerlessHttp {
   type FrameworkApplication = {
