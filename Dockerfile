@@ -5,7 +5,6 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 WORKDIR /usr/app
 COPY package*.json yarn.lock ./
 
-RUN yarn global add nodemon
 RUN yarn
 COPY . .
 
