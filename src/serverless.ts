@@ -22,10 +22,7 @@ declare namespace ServerlessHttp {
 
 let serverlessApp: ServerlessHttp.LambdaPartial;
 
-export const handler = async (
-  event: APIGatewayProxyEvent,
-  context: Context
-) => {
+export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   if (!serverlessApp) {
     const app = await getServer();
     serverlessApp = serverless(app);
