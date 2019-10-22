@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   db:
-    image: postgres
+    image: postgres:10
     restart: always
     environment:
       - POSTGRES_DB=movielog
@@ -30,4 +30,7 @@ services:
       - db
     volumes:
       - ./src:/usr/app/src
-    env_file: ./.env
+    environment:
+      - DB_ENDPOINT=db
+      - DB_USERNAME=movielog
+      - DB_PASSWORD=movielog
