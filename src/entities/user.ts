@@ -36,7 +36,11 @@ class User extends BaseEntity {
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt!: Date;
 
-  public comparePassword(password: string): Promise<boolean> {
+  hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, BCRYPT_ROUNDS);
+  }
+
+  comparePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);
   }
 
@@ -47,10 +51,6 @@ class User extends BaseEntity {
       const hashedPassword = await this.hashPassword(this.password);
       this.password = hashedPassword;
     }
-  }
-
-  private hashPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, BCRYPT_ROUNDS);
   }
 }
 

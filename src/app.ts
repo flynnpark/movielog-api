@@ -2,7 +2,7 @@ import express from 'express';
 import { createConnection } from 'typeorm';
 import connectionOptions from './ormConfig';
 
-const getServer = async () => {
+const getServer = async (): Promise<express.Application> => {
   await createConnection(connectionOptions);
 
   const app = express();
