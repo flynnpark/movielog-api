@@ -9,6 +9,8 @@ services:
       - POSTGRES_USER=movielog
       - POSTGRES_PASSWORD=movielog
       - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    ports:
+      - '5432:5432'
     healthcheck:
       test: 'pg_isready -h localhost -p 5432 -q -U movielog'
       interval: 3s
