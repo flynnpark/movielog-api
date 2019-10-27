@@ -7,6 +7,10 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.8.2",
+    "@graphql-codegen/introspection": "1.8.2",
+    "@graphql-codegen/typescript": "1.8.2",
+    "@graphql-codegen/typescript-resolvers": "^1.8.2",
     "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.1",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
@@ -24,13 +28,16 @@
     "bcrypt": "^3.0.6",
     "class-validator": "^0.10.2",
     "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "merge-graphql-schemas": "^1.7.0",
     "pg": "^7.12.1",
     "serverless-http": "^2.3.0",
     "typeorm": "^0.2.20"
   },
   "scripts": {
     "build": "tsc",
-    "dev:server": "nodemon --exec ts-node src/server.ts -e ts",
-    "dev:serverless": "yarn build && sls offline start"
+    "dev:server": "nodemon --exec ts-node src/server.ts -e ts,graphql",
+    "dev:serverless": "yarn build && sls offline start",
+    "generate": "graphql-codegen --config codegen.yml"
   }
 }
