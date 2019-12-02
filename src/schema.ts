@@ -3,8 +3,9 @@ import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
 import path from 'path';
 
 const allTypes = fileLoader(path.join(__dirname, './api/**/*.graphql'));
-
-const allResolvers = fileLoader(path.join(__dirname, './api/**/*.resolvers.ts'));
+const allResolvers = fileLoader(
+  path.join(__dirname, './api/**/*.resolvers.ts')
+);
 
 const mergedTypes = mergeTypes(allTypes);
 const mergedResolvers = mergeResolvers(allResolvers);
