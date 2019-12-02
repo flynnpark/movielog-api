@@ -1,10 +1,18 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import { createConnection } from 'typeorm';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import connectionOptions from './ormConfig';
 import schema from './schema';
 
-const getServer = async (): Promise<{ app: express.Application; server: ApolloServer }> => {
+interface GetServiceResult {
+  app: express.Application;
+  server: ApolloServer;
+}
+
+const getServer = async (): Promise<GetServiceResult> => {
   await createConnection(connectionOptions);
 
   const server = new ApolloServer({
@@ -13,7 +21,7 @@ const getServer = async (): Promise<{ app: express.Application; server: ApolloSe
   });
   const app = express();
 
-  app.get('/status', (req, res) => res.status(200).json({ success: true }));
+  app.get('/status', (_, res) => res.status(200).json({ success: true }));
   server.applyMiddleware({ app });
 
   return { app, server };
