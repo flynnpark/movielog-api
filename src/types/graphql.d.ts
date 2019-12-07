@@ -10,6 +10,13 @@ export type Scalars = {
   Float: number,
 };
 
+export type EmailSignInResponse = {
+   __typename?: 'EmailSignInResponse',
+  ok: Scalars['Boolean'],
+  error?: Maybe<Scalars['String']>,
+  token?: Maybe<Scalars['String']>,
+};
+
 export type EmailSignUpResponse = {
    __typename?: 'EmailSignUpResponse',
   ok: Scalars['Boolean'],
@@ -19,7 +26,14 @@ export type EmailSignUpResponse = {
 
 export type Mutation = {
    __typename?: 'Mutation',
+  EmailSignIn: EmailSignInResponse,
   EmailSignUp: EmailSignUpResponse,
+};
+
+
+export type MutationEmailSignInArgs = {
+  email: Scalars['String'],
+  password: Scalars['String']
 };
 
 
@@ -123,8 +137,9 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Mutation: ResolverTypeWrapper<{}>,
-  EmailSignUpResponse: ResolverTypeWrapper<EmailSignUpResponse>,
+  EmailSignInResponse: ResolverTypeWrapper<EmailSignInResponse>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  EmailSignUpResponse: ResolverTypeWrapper<EmailSignUpResponse>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -134,8 +149,15 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'],
   String: Scalars['String'],
   Mutation: {},
-  EmailSignUpResponse: EmailSignUpResponse,
+  EmailSignInResponse: EmailSignInResponse,
   Boolean: Scalars['Boolean'],
+  EmailSignUpResponse: EmailSignUpResponse,
+};
+
+export type EmailSignInResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['EmailSignInResponse'] = ResolversParentTypes['EmailSignInResponse']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
 };
 
 export type EmailSignUpResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['EmailSignUpResponse'] = ResolversParentTypes['EmailSignUpResponse']> = {
@@ -145,6 +167,7 @@ export type EmailSignUpResponseResolvers<ContextType = any, ParentType extends R
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  EmailSignIn?: Resolver<ResolversTypes['EmailSignInResponse'], ParentType, ContextType, RequireFields<MutationEmailSignInArgs, 'email' | 'password'>>,
   EmailSignUp?: Resolver<ResolversTypes['EmailSignUpResponse'], ParentType, ContextType, RequireFields<MutationEmailSignUpArgs, 'email' | 'password' | 'name'>>,
 };
 
@@ -163,6 +186,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  EmailSignInResponse?: EmailSignInResponseResolvers<ContextType>,
   EmailSignUpResponse?: EmailSignUpResponseResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
