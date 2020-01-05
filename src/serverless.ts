@@ -1,10 +1,11 @@
 import serverless from 'serverless-http';
-import getServer from './app';
 import {
   APIGatewayProxyEvent,
   Context,
   APIGatewayProxyResult
 } from 'aws-lambda';
+import { ServerlessHttp } from './types/app';
+import getServer from './app';
 
 let serverlessApp: ServerlessHttp.LambdaPartial;
 
