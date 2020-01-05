@@ -1,6 +1,6 @@
 import { APIResult } from '../../types/app';
 import { MutationEmailSignUpArgs, Resolvers } from '../../types/graphql';
-import { createJWT } from '../../utils/jwt';
+import { createJWT } from '../../utils/auth';
 import User from '../../entities/user';
 
 interface SignUpResult {
@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
           };
         } else {
           const newUser = await User.create({ ...args }).save();
-          const token = createJWT(newUser.id);
+          const token = createJWT(newUser);
           return {
             ok: true,
             message: null,

@@ -1,6 +1,6 @@
 import { APIResult } from '../../types/app';
 import { Resolvers, MutationEmailSignInArgs } from '../../types/graphql';
-import { createJWT } from '../../utils/jwt';
+import { createJWT } from '../../utils/auth';
 import User from '../../entities/user';
 
 interface SignInResult {
@@ -17,7 +17,7 @@ const resolvers: Resolvers = {
       try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-          const token = createJWT(existingUser.id);
+          const token = createJWT(existingUser);
           return {
             ok: true,
             message: null,
