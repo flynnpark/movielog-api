@@ -6,7 +6,7 @@ import {
   VerifiedCallback
 } from 'passport-jwt';
 import jwt from 'jsonwebtoken';
-import User from '../entities/User';
+import User from '../entities/user';
 
 export interface JWTPayload {
   id: number;
