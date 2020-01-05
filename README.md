@@ -1,1 +1,1 @@
-# Movie.log Backend Server
+# Movie.log API Server
