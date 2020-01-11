@@ -5,7 +5,7 @@ class Genre extends BaseEntity {
   @PrimaryColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 30, comment: '장르명' })
   name!: string;
 }
 
