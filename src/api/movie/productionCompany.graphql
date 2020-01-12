@@ -1,0 +1,10 @@
+type ProductionCompany {
+  id: Int!
+  name: String!
+  logoPath: String
+  originCountry: String!
+}
+
+type Query {
+  productionCompany: ProductionCompany
+}

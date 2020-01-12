@@ -1,0 +1,21 @@
+scalar Date
+
+type Movie {
+  id: Int!
+  tmdbId: Int!
+  title: String!
+  originalTitle: String!
+  tagline: String
+  overview: String
+  runtime: Int!
+  releaseDate: Date!
+  posterPath: String!
+  backdropPath: String!
+  originalLanguage: String!
+  adult: Boolean;
+  budget: Int!
+}
+
+type Query {
+  movie: Movie
+}
