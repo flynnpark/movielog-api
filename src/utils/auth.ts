@@ -47,7 +47,7 @@ export const passportAuthenticate = (
   next: NextFunction
 ): void => {
   passport.authenticate(
-    ['jwt', 'facebook-token'],
+    ['jwt'],
     { session: false },
     (error: Error, user: User | false) => {
       if (error) {
