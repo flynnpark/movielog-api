@@ -1,7 +1,7 @@
 {
-  "name": "movie-log-be",
+  "name": "movie-log-api",
   "version": "0.1.0",
-  "description": "Movie.log Backend Server",
+  "description": "Movie.log API Server",
   "main": "src/index.ts",
   "author": "Flynn<wphestiraid@gmail.com>",
   "license": "MIT",
