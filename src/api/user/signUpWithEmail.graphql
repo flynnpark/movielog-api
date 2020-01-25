@@ -1,0 +1,19 @@
+type SignUpToken {
+  token: String
+}
+
+type SignUpWithEmailResponse {
+  ok: Boolean!
+  error: String
+  result: SignUpToken
+}
+
+type Mutation {
+  SignUpWithEmail(
+    email: String!
+    password: String!
+    name: String!
+    avatar: String
+    shortBio: String
+  ): SignUpWithEmailResponse!
+}

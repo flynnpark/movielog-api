@@ -1,5 +1,4 @@
 import { APIResult } from '../../types/app';
-import { Resolvers, MutationEmailSignInArgs } from '../../types/graphql';
 import { createJWT } from '../../utils/auth';
 import User from '../../entities/user';
 
@@ -7,11 +6,11 @@ interface SignInResult {
   token: string;
 }
 
-const resolvers: Resolvers = {
+const resolvers = {
   Mutation: {
-    EmailSignUp: async (
-      _,
-      args: MutationEmailSignInArgs
+    SignInWithEmail: async (
+      _: any,
+      args: any
     ): Promise<APIResult<SignInResult>> => {
       const { email } = args;
       try {

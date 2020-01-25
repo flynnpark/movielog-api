@@ -1,0 +1,13 @@
+type SignInToken {
+  token: String
+}
+
+type SignInWithEmailResponse {
+  ok: Boolean!
+  error: String
+  result: SignInToken
+}
+
+type Mutation {
+  SignInWithEmail(email: String!, password: String!): SignInWithEmailResponse!
+}

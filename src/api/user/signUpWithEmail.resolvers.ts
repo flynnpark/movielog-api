@@ -1,35 +1,35 @@
 import { APIResult } from '../../types/app';
-import { Resolvers, MutationEmailSignInArgs } from '../../types/graphql';
 import { createJWT } from '../../utils/auth';
 import User from '../../entities/user';
 
-interface SignInResult {
+interface SignUpResult {
   token: string;
 }
 
-const resolvers: Resolvers = {
+const resolvers = {
   Mutation: {
-    EmailSignUp: async (
-      _,
-      args: MutationEmailSignInArgs
-    ): Promise<APIResult<SignInResult>> => {
+    SignUpWithEmail: async (
+      _: any,
+      args: any
+    ): Promise<APIResult<SignUpResult>> => {
       const { email } = args;
       try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-          const token = createJWT(existingUser);
+          return {
+            ok: false,
+            message: 'You should log in instead',
+            result: null
+          };
+        } else {
+          const newUser = await User.create({ ...args }).save();
+          const token = createJWT(newUser);
           return {
             ok: true,
             message: null,
             result: {
               token
             }
-          };
-        } else {
-          return {
-            ok: false,
-            message: '존재하지 않는 회원입니다',
-            result: null
           };
         }
       } catch (error) {
