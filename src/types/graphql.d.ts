@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -8,36 +8,47 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+  Date: any,
 };
 
-export type EmailSignInResponse = {
-   __typename?: 'EmailSignInResponse',
-  ok: Scalars['Boolean'],
-  error?: Maybe<Scalars['String']>,
-  token?: Maybe<Scalars['String']>,
+
+export type Genre = {
+   __typename?: 'Genre',
+  id: Scalars['Int'],
+  name: Scalars['String'],
 };
 
-export type EmailSignUpResponse = {
-   __typename?: 'EmailSignUpResponse',
-  ok: Scalars['Boolean'],
-  error?: Maybe<Scalars['String']>,
-  token?: Maybe<Scalars['String']>,
+export type Movie = {
+   __typename?: 'Movie',
+  id: Scalars['Int'],
+  tmdbId: Scalars['Int'],
+  title: Scalars['String'],
+  originalTitle: Scalars['String'],
+  tagline?: Maybe<Scalars['String']>,
+  overview?: Maybe<Scalars['String']>,
+  runtime: Scalars['Int'],
+  releaseDate: Scalars['Date'],
+  posterPath: Scalars['String'],
+  backdropPath: Scalars['String'],
+  originalLanguage: Scalars['String'],
+  adult?: Maybe<Scalars['Boolean']>,
+  budget: Scalars['Int'],
 };
 
 export type Mutation = {
    __typename?: 'Mutation',
-  EmailSignIn: EmailSignInResponse,
-  EmailSignUp: EmailSignUpResponse,
+  SignInWithEmail: SignInWithEmailResponse,
+  SignUpWithEmail: SignUpWithEmailResponse,
 };
 
 
-export type MutationEmailSignInArgs = {
+export type MutationSignInWithEmailArgs = {
   email: Scalars['String'],
   password: Scalars['String']
 };
 
 
-export type MutationEmailSignUpArgs = {
+export type MutationSignUpWithEmailArgs = {
   email: Scalars['String'],
   password: Scalars['String'],
   name: Scalars['String'],
@@ -45,9 +56,44 @@ export type MutationEmailSignUpArgs = {
   shortBio?: Maybe<Scalars['String']>
 };
 
+export type ProductionCompany = {
+   __typename?: 'ProductionCompany',
+  id: Scalars['Int'],
+  name: Scalars['String'],
+  logoPath?: Maybe<Scalars['String']>,
+  originCountry: Scalars['String'],
+};
+
 export type Query = {
    __typename?: 'Query',
+  genre?: Maybe<Genre>,
+  movie?: Maybe<Movie>,
+  productionCompany?: Maybe<ProductionCompany>,
   user?: Maybe<User>,
+};
+
+export type SignInToken = {
+   __typename?: 'SignInToken',
+  token?: Maybe<Scalars['String']>,
+};
+
+export type SignInWithEmailResponse = {
+   __typename?: 'SignInWithEmailResponse',
+  ok: Scalars['Boolean'],
+  error?: Maybe<Scalars['String']>,
+  result?: Maybe<SignInToken>,
+};
+
+export type SignUpToken = {
+   __typename?: 'SignUpToken',
+  token?: Maybe<Scalars['String']>,
+};
+
+export type SignUpWithEmailResponse = {
+   __typename?: 'SignUpWithEmailResponse',
+  ok: Scalars['Boolean'],
+  error?: Maybe<Scalars['String']>,
+  result?: Maybe<SignUpToken>,
 };
 
 export type User = {
@@ -133,46 +179,101 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
-  User: ResolverTypeWrapper<User>,
+  Genre: ResolverTypeWrapper<Genre>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Mutation: ResolverTypeWrapper<{}>,
-  EmailSignInResponse: ResolverTypeWrapper<EmailSignInResponse>,
+  Movie: ResolverTypeWrapper<Movie>,
+  Date: ResolverTypeWrapper<Scalars['Date']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  EmailSignUpResponse: ResolverTypeWrapper<EmailSignUpResponse>,
+  ProductionCompany: ResolverTypeWrapper<ProductionCompany>,
+  User: ResolverTypeWrapper<User>,
+  Mutation: ResolverTypeWrapper<{}>,
+  SignInWithEmailResponse: ResolverTypeWrapper<SignInWithEmailResponse>,
+  SignInToken: ResolverTypeWrapper<SignInToken>,
+  SignUpWithEmailResponse: ResolverTypeWrapper<SignUpWithEmailResponse>,
+  SignUpToken: ResolverTypeWrapper<SignUpToken>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
-  User: User,
+  Genre: Genre,
   Int: Scalars['Int'],
   String: Scalars['String'],
-  Mutation: {},
-  EmailSignInResponse: EmailSignInResponse,
+  Movie: Movie,
+  Date: Scalars['Date'],
   Boolean: Scalars['Boolean'],
-  EmailSignUpResponse: EmailSignUpResponse,
+  ProductionCompany: ProductionCompany,
+  User: User,
+  Mutation: {},
+  SignInWithEmailResponse: SignInWithEmailResponse,
+  SignInToken: SignInToken,
+  SignUpWithEmailResponse: SignUpWithEmailResponse,
+  SignUpToken: SignUpToken,
 };
 
-export type EmailSignInResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['EmailSignInResponse'] = ResolversParentTypes['EmailSignInResponse']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date'
+}
+
+export type GenreResolvers<ContextType = any, ParentType extends ResolversParentTypes['Genre'] = ResolversParentTypes['Genre']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
-export type EmailSignUpResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['EmailSignUpResponse'] = ResolversParentTypes['EmailSignUpResponse']> = {
-  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  tmdbId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  originalTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  tagline?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  runtime?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  releaseDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>,
+  posterPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  backdropPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  originalLanguage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  budget?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  EmailSignIn?: Resolver<ResolversTypes['EmailSignInResponse'], ParentType, ContextType, RequireFields<MutationEmailSignInArgs, 'email' | 'password'>>,
-  EmailSignUp?: Resolver<ResolversTypes['EmailSignUpResponse'], ParentType, ContextType, RequireFields<MutationEmailSignUpArgs, 'email' | 'password' | 'name'>>,
+  SignInWithEmail?: Resolver<ResolversTypes['SignInWithEmailResponse'], ParentType, ContextType, RequireFields<MutationSignInWithEmailArgs, 'email' | 'password'>>,
+  SignUpWithEmail?: Resolver<ResolversTypes['SignUpWithEmailResponse'], ParentType, ContextType, RequireFields<MutationSignUpWithEmailArgs, 'email' | 'password' | 'name'>>,
+};
+
+export type ProductionCompanyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductionCompany'] = ResolversParentTypes['ProductionCompany']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  logoPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  originCountry?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  genre?: Resolver<Maybe<ResolversTypes['Genre']>, ParentType, ContextType>,
+  movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType>,
+  productionCompany?: Resolver<Maybe<ResolversTypes['ProductionCompany']>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+};
+
+export type SignInTokenResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignInToken'] = ResolversParentTypes['SignInToken']> = {
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+};
+
+export type SignInWithEmailResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignInWithEmailResponse'] = ResolversParentTypes['SignInWithEmailResponse']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  result?: Resolver<Maybe<ResolversTypes['SignInToken']>, ParentType, ContextType>,
+};
+
+export type SignUpTokenResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignUpToken'] = ResolversParentTypes['SignUpToken']> = {
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+};
+
+export type SignUpWithEmailResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['SignUpWithEmailResponse'] = ResolversParentTypes['SignUpWithEmailResponse']> = {
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  result?: Resolver<Maybe<ResolversTypes['SignUpToken']>, ParentType, ContextType>,
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -186,10 +287,16 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
-  EmailSignInResponse?: EmailSignInResponseResolvers<ContextType>,
-  EmailSignUpResponse?: EmailSignUpResponseResolvers<ContextType>,
+  Date?: GraphQLScalarType,
+  Genre?: GenreResolvers<ContextType>,
+  Movie?: MovieResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
+  ProductionCompany?: ProductionCompanyResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  SignInToken?: SignInTokenResolvers<ContextType>,
+  SignInWithEmailResponse?: SignInWithEmailResponseResolvers<ContextType>,
+  SignUpToken?: SignUpTokenResolvers<ContextType>,
+  SignUpWithEmailResponse?: SignUpWithEmailResponseResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
 };
 

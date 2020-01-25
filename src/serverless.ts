@@ -1,13 +1,12 @@
-import serverless from 'serverless-http';
+import serverless, { Handler } from 'serverless-http';
 import {
   APIGatewayProxyEvent,
   Context,
   APIGatewayProxyResult
 } from 'aws-lambda';
-import { ServerlessHttp } from './types/app';
 import getServer from './app';
 
-let serverlessApp: ServerlessHttp.LambdaPartial;
+let serverlessApp: Handler;
 
 export const handler = async (
   event: APIGatewayProxyEvent,
