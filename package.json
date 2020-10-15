@@ -26,7 +26,7 @@
     "@types/jsonwebtoken": "^8.3.5",
     "@types/passport": "^1.0.2",
     "@types/passport-jwt": "^3.0.3",
-    "apollo-server-express": "^2.9.15",
+    "apollo-server-express": "^2.14.2",
     "bcrypt": "^3.0.7",
     "class-validator": "^0.11.0",
     "dotenv": "^8.2.0",
